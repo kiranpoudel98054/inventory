@@ -9,11 +9,12 @@ export default function AddStore() {
   const [form, setForm] = useState({
     userId: authContext.user,
     name: "",
-    category: "",
+    category: "Electronics",
     address: "",
     city: "",
     image: "",
   });
+  const [loading, setLoading] = useState(false)
 
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,6 +24,11 @@ export default function AddStore() {
   const cancelButtonRef = useRef(null);
 
   const addProduct = async () => {
+    if (form.address.length === 0 || form.category.length === 0 || form.city.length === 0 || form.name.length === 0 || form.image.length === 0)
+    {
+      alert("Fill all the required fields");
+      return
+    }
     fetch("http://localhost:4000/api/store/add", {
       method: "POST",
       headers: {
@@ -43,17 +49,18 @@ export default function AddStore() {
     data.append("file", image);
     data.append("upload_preset", "inventoryapp");
 
-
+    setLoading(true)
     await fetch("https://api.cloudinary.com/v1_1/ddhayhptm/image/upload", {
       method: "POST",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        setForm({ ...form, image: data.url });
+        setForm({ ...form, image: data.secure_url });
         alert("Store Image Successfully Uploaded");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -150,14 +157,15 @@ export default function AddStore() {
                             <select
                               id="category"
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              onChange={(e) =>
+                              onChange={(e) => {
                                 setForm({
                                   ...form,
                                   category: e.target.value,
                                 })
-                              }
+                              }}
+                              defaultValue={form.category}
                             >
-                              <option selected="" value="Electronics">
+                              <option value="Electronics">
                                 Electronics
                               </option>
                               <option value="Groceries">Groceries</option>
@@ -234,6 +242,7 @@ export default function AddStore() {
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                     onClick={addProduct}
+                    disabled={loading}
                   >
                     Add Store
                   </button>
