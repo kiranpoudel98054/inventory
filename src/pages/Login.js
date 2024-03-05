@@ -171,7 +171,7 @@ function Login() {
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   Don't Have an Account, Please{" "}
-                  <Link to="/register"> Register now </Link>
+                  <Link to="/register" id="register"> Register now </Link>
                 </span>
               </p>
             </div>

@@ -79,6 +79,7 @@ function Register() {
             <div className="flex flex-col gap-4 -space-y-px rounded-md shadow-sm">
               <div className="flex gap-4">
                 <input
+                id="first-name"
                   name="firstName"
                   type="text"
                   required
@@ -88,6 +89,7 @@ function Register() {
                   onChange={handleInputChange}
                 />
                 <input
+                id="last-name"
                   name="lastName"
                   type="text"
                   required
@@ -135,7 +137,7 @@ function Register() {
                   onChange={handleInputChange}
                 />
               </div>
-              <UploadImage uploadImage={uploadImage} />
+              <UploadImage uploadImage={uploadImage} id="upload-image"/>
             </div>
 
             <div className="flex items-center justify-between">
@@ -167,6 +169,7 @@ function Register() {
 
             <div>
               <button
+              id="signup-btn"
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={registerUser}
