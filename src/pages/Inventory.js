@@ -69,7 +69,11 @@ function Inventory() {
     console.log("Product ID: ", id);
     console.log(`http://localhost:4000/api/product/delete/${id}`);
     fetch(`http://localhost:4000/api/product/delete/${id}`)
-      .then((response) => response.json())
+      .then((response) => {
+        response.json()
+        alert('Product is deleted')
+
+      })
       .then((data) => {
         setUpdatePage(!updatePage);
       });

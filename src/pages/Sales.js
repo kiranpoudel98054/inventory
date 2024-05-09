@@ -78,6 +78,7 @@ function Sales() {
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 text-xs  rounded"
                 onClick={addSaleModalSetting}
+                id="add-sales"
               >
                 {/* <Link to="/inventory/add-product">Add Product</Link> */}
                 Add Sales
